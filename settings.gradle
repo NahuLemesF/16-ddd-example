@@ -1,4 +1,5 @@
 rootProject.name = '15-twilight-imperium'
-include 'src:shared'
-findProject(':src:shared')?.name = 'shared'
 
+include ':shared:domain'
+
+project(':shared:domain').projectDir = file('./src/shared/src/domain')
