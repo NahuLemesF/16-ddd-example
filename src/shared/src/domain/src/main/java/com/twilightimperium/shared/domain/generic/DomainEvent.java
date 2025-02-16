@@ -11,10 +11,10 @@ public abstract class DomainEvent {
     private String aggregateName;
     private Long version;
 
-    protected DomainEvent(String type) {
+    protected DomainEvent(String name) {
         this.when = Instant.now();
         this.uuid = UUID.randomUUID().toString();
-        this.name = type;
+        this.name = name;
         this.version = 1L;
     }
 
