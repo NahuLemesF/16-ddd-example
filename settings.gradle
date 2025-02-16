@@ -1,0 +1,4 @@
+rootProject.name = '15-twilight-imperium'
+include 'src:shared'
+findProject(':src:shared')?.name = 'shared'
+
