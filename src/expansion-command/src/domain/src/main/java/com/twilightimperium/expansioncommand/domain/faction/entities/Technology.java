@@ -1,4 +1,43 @@
 package com.twilightimperium.expansioncommand.domain.faction.entities;
 
-public class Technology {
+import com.twilightimperium.expansioncommand.domain.faction.values.Level;
+import com.twilightimperium.expansioncommand.domain.faction.values.Name;
+import com.twilightimperium.expansioncommand.domain.faction.values.TechnologyId;
+import com.twilightimperium.shared.domain.generic.Entity;
+
+public class Technology extends Entity<TechnologyId> {
+    private Name name;
+    private Level level;
+
+    public Technology(Name name, Level level) {
+        super(new TechnologyId());
+        this.name = name;
+        this.level = level;
+    }
+
+    public Technology(TechnologyId identity, Name name, Level level) {
+        super(identity);
+        this.name = name;
+        this.level = level;
+    }
+
+    public void increaseLevel(Integer amount) {
+        this.level = Level.of(this.level.getValue() + amount);
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
 }
