@@ -6,7 +6,7 @@ public class TechnologyAdded extends DomainEvent {
     private final String name;
     private final Integer level;
 
-    public TechnologyAdded(String name, Integer level, Integer requiredCardCount) {
+    public TechnologyAdded(String name, Integer level) {
         super(EventsEnum.TECHNOLOGY_ADDED.name());
         this.name = name;
         this.level = level;

@@ -6,7 +6,7 @@ public class UnitRemoved extends DomainEvent {
     private final String id;
 
 
-    public UnitRemoved(String id, String type, Integer attackPower, Integer capacity, Integer cost) {
+    public UnitRemoved(String id) {
         super(EventsEnum.UNIT_REMOVED.name());
         this.id = id;
     }
