@@ -1,19 +1,18 @@
 package com.twilightimperium.expansioncommand.domain.system.values;
 
-import com.twilightimperium.expansioncommand.domain.faction.values.Capacity;
 import com.twilightimperium.shared.domain.generic.IValueObject;
 import com.twilightimperium.shared.domain.utils.Validate;
 
-public class InvadingUnits implements IValueObject {
+public class InvadingUnitCount implements IValueObject {
     private final Integer value;
 
-    private InvadingUnits(final Integer value) {
+    private InvadingUnitCount(final Integer value) {
         this.value = value;
         validate();
     }
 
-    public static InvadingUnits of(final Integer value) {
-        return new InvadingUnits(value);
+    public static InvadingUnitCount of(final Integer value) {
+        return new InvadingUnitCount(value);
     }
 
     @Override

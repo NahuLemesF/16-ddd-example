@@ -1,19 +1,18 @@
 package com.twilightimperium.expansioncommand.domain.system.values;
 
-import com.twilightimperium.expansioncommand.domain.faction.values.Capacity;
 import com.twilightimperium.shared.domain.generic.IValueObject;
 import com.twilightimperium.shared.domain.utils.Validate;
 
-public class Resources implements IValueObject {
+public class Resource implements IValueObject {
     private final Integer value;
 
-    private Resources(final Integer value) {
+    private Resource(final Integer value) {
         this.value = value;
         validate();
     }
 
-    public static Resources of(final Integer value) {
-        return new Resources(value);
+    public static Resource of(final Integer value) {
+        return new Resource(value);
     }
 
     @Override
