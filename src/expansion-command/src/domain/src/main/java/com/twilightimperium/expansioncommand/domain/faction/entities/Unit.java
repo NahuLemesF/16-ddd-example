@@ -13,6 +13,7 @@ public class Unit extends Entity<UnitId> {
     private Capacity capacity;
     private Cost cost;
 
+    // region Constructors
     public Unit(AttackPower attackPower, Capacity capacity, Cost cost, Type type) {
         super(new UnitId());
         this.attackPower = attackPower;
@@ -28,16 +29,9 @@ public class Unit extends Entity<UnitId> {
         this.cost = cost;
         this.type = type;
     }
+    // endregion
 
-    public void increaseCapacity() {
-        this.capacity = Capacity.of(this.capacity.getValue() + 2);
-    }
-
-    public void reduceCost(int amount) {
-        int newCostValue = Math.max(1, this.cost.getValue() - amount);
-        this.cost = Cost.of(newCostValue);
-    }
-
+    // region Getters and Setters
     public AttackPower getAttackPower() {
         return attackPower;
     }
@@ -69,4 +63,17 @@ public class Unit extends Entity<UnitId> {
     public void setType(Type type) {
         this.type = type;
     }
+    // endregion
+
+    // region Public Methods
+    public void increaseCapacity() {
+        this.capacity = Capacity.of(this.capacity.getValue() + 2);
+    }
+
+    public void reduceCost(int amount) {
+        int newCostValue = Math.max(1, this.cost.getValue() - amount);
+        this.cost = Cost.of(newCostValue);
+    }
+    // endregion
+
 }

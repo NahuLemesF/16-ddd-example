@@ -9,6 +9,7 @@ public class ConqueredFaction extends Entity<ConqueredFactionId> {
     private Name name;
     private Percentage percentage;
 
+    // region Constructors
     public ConqueredFaction(Name name, Percentage percentage) {
         super(new ConqueredFactionId());
         this.name = name;
@@ -20,14 +21,9 @@ public class ConqueredFaction extends Entity<ConqueredFactionId> {
         this.name = name;
         this.percentage = percentage;
     }
+    // endregion
 
-    public void updatePercentage(int conqueredSystems) {
-        int increase = conqueredSystems * 10;
-
-        int newPercentage = Math.min(100, Math.max(0, this.percentage.getValue() + increase));
-        this.percentage = Percentage.of(newPercentage);
-    }
-
+    // region Getters and Setters
     public Name getName() {
         return name;
     }
@@ -43,4 +39,15 @@ public class ConqueredFaction extends Entity<ConqueredFactionId> {
     public void setPercentage(Percentage percentage) {
         this.percentage = percentage;
     }
+    // endregion
+
+    // region Public Methods
+    public void updatePercentage(int conqueredSystems) {
+        Integer increase = conqueredSystems * 10;
+
+        Integer newPercentage = Math.min(100, Math.max(0, this.percentage.getValue() + increase));
+        this.percentage = Percentage.of(newPercentage);
+    }
+    // endregion
+
 }

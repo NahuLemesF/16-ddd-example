@@ -12,5 +12,11 @@ public class ConqueredFactionAdded extends DomainEvent {
         this.percentage = percentage;
     }
 
+    public Integer getPercentage() {
+        return percentage;
+    }
 
+    public String getName() {
+        return name;
+    }
 }

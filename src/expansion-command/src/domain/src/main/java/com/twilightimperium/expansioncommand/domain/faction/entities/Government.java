@@ -11,6 +11,7 @@ public class Government extends Entity<GovernmentId> {
     private Type type;
     private Level level;
 
+    // region Constructors
     public Government(Type type, Level level) {
         super(new GovernmentId());
         this.type = type;
@@ -22,23 +23,9 @@ public class Government extends Entity<GovernmentId> {
         this.type = type;
         this.level = level;
     }
+    // endregion
 
-    public void increaseLevel(Integer amount) {
-        this.level = Level.of(this.level.getValue() + amount);
-        this.changeType();
-    }
-
-
-    public void changeType() {
-        int currentLevel = this.level.getValue();
-
-        List<String> types = List.of("Tribal", "Feudal", "Imperial");
-
-        int index = Math.min((currentLevel - 1) / 5, types.size() - 1);
-
-        this.type = Type.of(types.get(index));
-    }
-
+    // region Getters and Setters
     public Level getLevel() {
         return level;
     }
@@ -54,4 +41,27 @@ public class Government extends Entity<GovernmentId> {
     public void setType(Type type) {
         this.type = type;
     }
+    // endregion
+
+    // region Public Methods
+    public void increaseLevel(Integer amount) {
+        this.level = Level.of(this.level.getValue() + amount);
+        this.changeType();
+    }
+
+    public void changeType() {
+        int currentLevel = this.level.getValue();
+
+        String newType;
+        if (currentLevel < 5) {
+            newType = "Tribal";
+        } else if (currentLevel < 10) {
+            newType = "Feudal";
+        } else {
+            newType = "Imperial";
+        }
+
+        this.type = Type.of(newType);
+    }
+    // endregion
 }

@@ -9,6 +9,7 @@ public class Technology extends Entity<TechnologyId> {
     private Name name;
     private Level level;
 
+    // region Constructors
     public Technology(Name name, Level level) {
         super(new TechnologyId());
         this.name = name;
@@ -20,11 +21,9 @@ public class Technology extends Entity<TechnologyId> {
         this.name = name;
         this.level = level;
     }
+    // endregion
 
-    public void increaseLevel(Integer amount) {
-        this.level = Level.of(this.level.getValue() + amount);
-    }
-
+    // region Getters and Setters
     public Level getLevel() {
         return level;
     }
@@ -40,4 +39,11 @@ public class Technology extends Entity<TechnologyId> {
     public void setName(Name name) {
         this.name = name;
     }
+    // endregion
+
+    // region Public Methods
+    public void increaseLevel(Integer amount) {
+        this.level = Level.of(this.level.getValue() + amount);
+    }
+    // endregion
 }
