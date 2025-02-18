@@ -8,6 +8,7 @@ import com.twilightimperium.shared.domain.generic.Entity;
 public class ConqueredFaction extends Entity<ConqueredFactionId> {
     private Name name;
     private Percentage percentage;
+    private static final Integer PERCENTAGE_INCREASE = 10;
 
     // region Constructors
     public ConqueredFaction(Name name, Percentage percentage) {
@@ -43,7 +44,7 @@ public class ConqueredFaction extends Entity<ConqueredFactionId> {
 
     // region Public Methods
     public void updatePercentage(int conqueredSystems) {
-        Integer increase = conqueredSystems * 10;
+        Integer increase = conqueredSystems * PERCENTAGE_INCREASE;
 
         Integer newPercentage = Math.min(100, Math.max(0, this.percentage.getValue() + increase));
         this.percentage = Percentage.of(newPercentage);

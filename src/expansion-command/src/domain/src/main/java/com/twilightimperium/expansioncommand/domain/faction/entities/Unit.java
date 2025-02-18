@@ -14,6 +14,7 @@ public class Unit extends Entity<UnitId> {
     private Movement movement;
     private Capacity capacity;
     private Cost cost;
+    private static final Integer CAPACITY_INCREMENT = 2;
 
     // region Constructors
     public Unit(CombatPower combatPower, Capacity capacity, Cost cost, Type type, Movement movement) {
@@ -79,7 +80,7 @@ public class Unit extends Entity<UnitId> {
 
     // region Public Methods
     public void increaseCapacity() {
-        this.capacity = Capacity.of(this.capacity.getValue() + 2);
+        this.capacity = Capacity.of(this.capacity.getValue() + CAPACITY_INCREMENT);
     }
 
     public void reduceCost(int amount) {

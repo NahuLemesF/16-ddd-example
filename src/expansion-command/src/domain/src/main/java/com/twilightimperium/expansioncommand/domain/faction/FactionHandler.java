@@ -49,7 +49,7 @@ public class FactionHandler extends DomainActionsContainer {
         add(removeConqueredFaction(faction));
         add(surrenderFaction(faction));
         add(increaseTechnologyLevel(faction));
-
+        add(updateConqueredFactionPercentage(faction));
     }
 
     public Consumer<? extends DomainEvent> createFaction(Faction faction) {

@@ -45,7 +45,7 @@ public class Faction extends AggregateRoot<FactionId> {
     }
     // endregion
 
-
+    // region Getters and Setters
     public List<ConqueredFaction> getConqueredFactionsList() {
         return conqueredFactionsList;
     }
@@ -101,6 +101,7 @@ public class Faction extends AggregateRoot<FactionId> {
     public void setUnitsList(List<Unit> unitsList) {
         this.unitsList = unitsList;
     }
+    // endregion
 
     // region Domain Actions
     public void createUnit(String type, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
