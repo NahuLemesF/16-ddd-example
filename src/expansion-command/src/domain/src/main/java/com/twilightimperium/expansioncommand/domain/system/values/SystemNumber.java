@@ -3,22 +3,22 @@ package com.twilightimperium.expansioncommand.domain.system.values;
 import com.twilightimperium.shared.domain.generic.IValueObject;
 import com.twilightimperium.shared.domain.utils.Validate;
 
-public class Number implements IValueObject {
+public class SystemNumber implements IValueObject {
     private final Integer value;
 
-    private Number(final Integer value) {
+    private SystemNumber(final Integer value) {
         this.value = value;
         validate();
     }
 
-    public static Number of(final Integer value) {
-        return new Number(value);
+    public static SystemNumber of(final Integer value) {
+        return new SystemNumber(value);
     }
 
     @Override
     public void validate() {
-        Validate.validateNotNull(value, "Number");
-        Validate.validatePositiveNumber(value, "Number");
+        Validate.validateNotNull(value, "System Number");
+        Validate.validatePositiveNumber(value, "System Number");
     }
 
     public Integer getValue() {

@@ -45,12 +45,10 @@ public class Government extends Entity<GovernmentId> {
     // region Public Methods
     public void increaseLevel(Integer level) {
         this.level = Level.of(this.level.getValue() + LEVEL_INCREMENT);
-        this.changeType();
     }
 
     public void decreaseLevel(Integer level) {
         this.level = Level.of(this.level.getValue() - LEVEL_INCREMENT);
-        this.changeType();
     }
 
     public void changeType() {

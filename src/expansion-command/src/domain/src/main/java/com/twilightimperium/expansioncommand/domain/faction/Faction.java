@@ -36,14 +36,13 @@ public class Faction extends AggregateRoot<FactionId> {
     // region Constructors
     public Faction(String name, String description) {
         super(new FactionId());
+        apply(new FactionCreated(name, description, false, "Default", 1));
         subscribe(new FactionHandler(this));
     }
 
     private Faction(FactionId identity) {
         super(identity);
     }
-
-
     // endregion
 
 
@@ -104,10 +103,6 @@ public class Faction extends AggregateRoot<FactionId> {
     }
 
     // region Domain Actions
-    public void createFaction(String name, String description) {
-        apply(new FactionCreated(name, description, false, "Default", 1));
-    }
-
     public void createUnit(String type, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
         apply(new UnitCreated(type, combatPower, movement, capacity, cost));
     }
