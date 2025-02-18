@@ -1,43 +1,47 @@
 package com.twilightimperium.expansioncommand.domain.faction.entities;
 
-import com.twilightimperium.expansioncommand.domain.faction.values.AttackPower;
+import com.twilightimperium.expansioncommand.domain.faction.values.CombatPower;
 import com.twilightimperium.expansioncommand.domain.faction.values.Capacity;
 import com.twilightimperium.expansioncommand.domain.faction.values.Cost;
+import com.twilightimperium.expansioncommand.domain.faction.values.Movement;
 import com.twilightimperium.expansioncommand.domain.faction.values.Type;
 import com.twilightimperium.expansioncommand.domain.faction.values.UnitId;
 import com.twilightimperium.shared.domain.generic.Entity;
 
 public class Unit extends Entity<UnitId> {
     private Type type;
-    private AttackPower attackPower;
+    private CombatPower combatPower;
+    private Movement movement;
     private Capacity capacity;
     private Cost cost;
 
     // region Constructors
-    public Unit(AttackPower attackPower, Capacity capacity, Cost cost, Type type) {
+    public Unit(CombatPower combatPower, Capacity capacity, Cost cost, Type type, Movement movement) {
         super(new UnitId());
-        this.attackPower = attackPower;
+        this.combatPower = combatPower;
         this.capacity = capacity;
         this.cost = cost;
         this.type = type;
+        this.movement = movement;
     }
 
-    public Unit(UnitId identity, AttackPower attackPower, Capacity capacity, Cost cost, Type type) {
+    public Unit(UnitId identity, CombatPower combatPower, Capacity capacity, Cost cost, Type type, Movement movement) {
         super(identity);
-        this.attackPower = attackPower;
+        this.combatPower = combatPower;
         this.capacity = capacity;
         this.cost = cost;
         this.type = type;
+        this.movement = movement;
     }
     // endregion
 
     // region Getters and Setters
-    public AttackPower getAttackPower() {
-        return attackPower;
+    public CombatPower getAttackPower() {
+        return combatPower;
     }
 
-    public void setAttackPower(AttackPower attackPower) {
-        this.attackPower = attackPower;
+    public void setAttackPower(CombatPower combatPower) {
+        this.combatPower = combatPower;
     }
 
     public Capacity getCapacity() {
@@ -62,6 +66,14 @@ public class Unit extends Entity<UnitId> {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public Movement getMovement() {
+        return movement;
+    }
+
+    public void setMovement(Movement movement) {
+        this.movement = movement;
     }
     // endregion
 

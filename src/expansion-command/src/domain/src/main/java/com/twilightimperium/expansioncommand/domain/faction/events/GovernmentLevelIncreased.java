@@ -14,4 +14,5 @@ public class GovernmentLevelIncreased extends DomainEvent {
         return level;
     }
 
+
 }

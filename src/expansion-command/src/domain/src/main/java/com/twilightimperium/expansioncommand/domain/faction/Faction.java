@@ -6,6 +6,7 @@ import com.twilightimperium.expansioncommand.domain.faction.entities.Technology;
 import com.twilightimperium.expansioncommand.domain.faction.entities.Unit;
 import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionAdded;
 import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionPercentageUpdated;
+import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionSurrendered;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentTypeChanged;
@@ -33,23 +34,19 @@ public class Faction extends AggregateRoot<FactionId> {
     private Government government;
 
     // region Constructors
-    public Faction(FactionId identity) {
+    public Faction(String name, String description) {
+        super(new FactionId());
+        subscribe(new FactionHandler(this));
+    }
+
+    private Faction(FactionId identity) {
         super(identity);
     }
 
-    public Faction(Name name, Description description, IsSurrendered isSurrendered, List<Unit> unitsList, List<Technology> technologiesList, List<ConqueredFaction> conqueredFactionsList, Government government) {
-        super(new FactionId());
-        this.name = name;
-        this.description = description;
-        this.isSurrendered = IsSurrendered.of(false);
-        this.unitsList = unitsList;
-        this.technologiesList = technologiesList;
-        this.conqueredFactionsList = conqueredFactionsList;
-        this.government = government;
-    }
+
     // endregion
 
-    // region Getters and Setters
+
     public List<ConqueredFaction> getConqueredFactionsList() {
         return conqueredFactionsList;
     }
@@ -105,11 +102,14 @@ public class Faction extends AggregateRoot<FactionId> {
     public void setUnitsList(List<Unit> unitsList) {
         this.unitsList = unitsList;
     }
-    // endregion
 
     // region Domain Actions
-    public void createUnit(String type, Integer attackPower, Integer capacity, Integer cost) {
-        apply(new UnitCreated(type, attackPower, capacity, cost));
+    public void createFaction(String name, String description) {
+        apply(new FactionCreated(name, description, false, "Default", 1));
+    }
+
+    public void createUnit(String type, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
+        apply(new UnitCreated(type, combatPower, movement, capacity, cost));
     }
 
     public void removeUnit(String id) {

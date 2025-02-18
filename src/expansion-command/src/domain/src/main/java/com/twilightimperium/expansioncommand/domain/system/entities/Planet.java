@@ -66,9 +66,6 @@ public class Planet extends Entity<PlanetId> {
     // endregion
 
     // region Public Methods
-    public void changeOwningFaction(OwningFaction newFaction) {
-        this.owningFaction = newFaction;
-    }
 
     public void addInvadingUnit(Integer count) {
         this.invadingUnitCount = InvadingUnitCount.of(this.invadingUnitCount.getValue() + count);

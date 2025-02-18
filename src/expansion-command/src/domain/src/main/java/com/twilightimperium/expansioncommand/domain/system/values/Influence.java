@@ -1,6 +1,5 @@
 package com.twilightimperium.expansioncommand.domain.system.values;
 
-import com.twilightimperium.expansioncommand.domain.faction.values.Capacity;
 import com.twilightimperium.shared.domain.generic.IValueObject;
 import com.twilightimperium.shared.domain.utils.Validate;
 

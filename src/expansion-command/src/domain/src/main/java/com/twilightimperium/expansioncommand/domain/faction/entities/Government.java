@@ -5,11 +5,10 @@ import com.twilightimperium.expansioncommand.domain.faction.values.Level;
 import com.twilightimperium.expansioncommand.domain.faction.values.Type;
 import com.twilightimperium.shared.domain.generic.Entity;
 
-import java.util.List;
-
 public class Government extends Entity<GovernmentId> {
     private Type type;
     private Level level;
+    private static final Integer LEVEL_INCREMENT = 1;
 
     // region Constructors
     public Government(Type type, Level level) {
@@ -44,8 +43,13 @@ public class Government extends Entity<GovernmentId> {
     // endregion
 
     // region Public Methods
-    public void increaseLevel(Integer amount) {
-        this.level = Level.of(this.level.getValue() + amount);
+    public void increaseLevel(Integer level) {
+        this.level = Level.of(this.level.getValue() + LEVEL_INCREMENT);
+        this.changeType();
+    }
+
+    public void decreaseLevel(Integer level) {
+        this.level = Level.of(this.level.getValue() - LEVEL_INCREMENT);
         this.changeType();
     }
 
