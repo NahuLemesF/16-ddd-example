@@ -66,6 +66,7 @@ public class FactionHandler extends DomainActionsContainer {
     }
 
     public Consumer<? extends DomainEvent> createUnit(Faction faction) {
+
         return (UnitCreated event) -> {
             Unit newUnit = new Unit(
                     CombatPower.of(event.getCombatPower()),
@@ -74,13 +75,10 @@ public class FactionHandler extends DomainActionsContainer {
                     Type.of(event.getType()),
                     Movement.of(event.getMovement())
             );
-
-            if (faction.getUnitsList() == null) {
-                faction.setUnitsList(new ArrayList<>());
-            }
-
             faction.getUnitsList().add(newUnit);
         };
+
+
     }
 
     public Consumer<? extends DomainEvent> removeUnit(Faction faction) {
@@ -94,7 +92,7 @@ public class FactionHandler extends DomainActionsContainer {
             faction.getUnitsList().stream()
                     .filter(unit -> unit.getIdentity().getValue().equals(event.getId()))
                     .findFirst()
-                    .ifPresent(unit -> unit.increaseCapacity());
+                    .ifPresent(Unit::increaseCapacity);
         };
     }
 
@@ -109,28 +107,27 @@ public class FactionHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> increaseGovernmentLevel(Faction faction) {
         return (GovernmentLevelIncreased event) -> {
-            faction.getGovernment().increaseLevel(event.getLevel());
+            faction.getGovernment().increaseLevel();
         };
     }
 
+
     public Consumer<? extends DomainEvent> decreaseGovernmentLevel(Faction faction) {
         return (GovernmentLevelDecreased event) -> {
-            faction.getGovernment().decreaseLevel(event.getLevel());
+            faction.getGovernment().decreaseLevel();
         };
     }
+
 
     public Consumer<? extends DomainEvent> changeGovernmentType(Faction faction) {
         return (GovernmentTypeChanged event) -> {
             faction.getGovernment().setType(Type.of(event.getType()));
+            faction.getGovernment().changeType();
         };
     }
 
     public Consumer<? extends DomainEvent> addTechnology(Faction faction) {
         return (TechnologyAdded event) -> {
-            if (faction.getTechnologiesList() == null) {
-                faction.setTechnologiesList(new ArrayList<>());
-            }
-
             Technology newTechnology = new Technology(
                     Name.of(event.getName()),
                     Level.of(event.getLevel())
@@ -142,9 +139,6 @@ public class FactionHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> addConqueredFaction(Faction faction) {
         return (ConqueredFactionAdded event) -> {
-            if (faction.getConqueredFactionsList() == null) {
-                faction.setConqueredFactionsList(new ArrayList<>());
-            }
 
             ConqueredFaction newConqueredFaction = new ConqueredFaction(
                     Name.of(event.getName()),
@@ -157,11 +151,9 @@ public class FactionHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> removeConqueredFaction(Faction faction) {
         return (ConqueredFactionLost event) -> {
-            if (faction.getConqueredFactionsList() != null) {
-                faction.getConqueredFactionsList().removeIf(conqueredFaction ->
-                        conqueredFaction.getIdentity().getValue().equals(event.getId())
-                );
-            }
+            faction.getConqueredFactionsList().removeIf(conqueredFaction ->
+                    conqueredFaction.getIdentity().getValue().equals(event.getId())
+            );
         };
     }
 
@@ -173,20 +165,16 @@ public class FactionHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> increaseTechnologyLevel(Faction faction) {
         return (TechnologyLevelIncreased event) -> {
-            if (faction.getTechnologiesList() != null) {
-                faction.getTechnologiesList().forEach(technology -> technology.increaseLevel(event.getLevel()));
-            }
+            faction.getTechnologiesList().forEach(technology -> technology.increaseLevel(event.getLevel()));
         };
     }
 
     public Consumer<? extends DomainEvent> updateConqueredFactionPercentage(Faction faction) {
         return (ConqueredFactionPercentageUpdated event) -> {
-            if (faction.getConqueredFactionsList() != null) {
-                faction.getConqueredFactionsList().stream()
-                        .filter(conqueredFaction -> conqueredFaction.getIdentity().getValue().equals(event.getId()))
-                        .findFirst()
-                        .ifPresent(conqueredFaction -> conqueredFaction.updatePercentage(event.getPercentage()));
-            }
+            faction.getConqueredFactionsList().stream()
+                    .filter(conqueredFaction -> conqueredFaction.getIdentity().getValue().equals(event.getId()))
+                    .findFirst()
+                    .ifPresent(conqueredFaction -> conqueredFaction.updatePercentage(event.getPercentage()));
         };
     }
 

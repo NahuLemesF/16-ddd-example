@@ -22,11 +22,12 @@ public class System extends AggregateRoot<SystemId> {
     // region Constructors
     private System(SystemId identity) {
         super(identity);
+        subscribe(new SystemHandler(this));
     }
 
-    public System(String factionId, Integer number, List<String> planetsList) {
+    public System(String factionId, Integer number) {
         super(new SystemId());
-        apply(new SystemCreated(number, factionId, planetsList));
+        apply(new SystemCreated(number, factionId));
         subscribe(new SystemHandler(this));
     }
     // endregion

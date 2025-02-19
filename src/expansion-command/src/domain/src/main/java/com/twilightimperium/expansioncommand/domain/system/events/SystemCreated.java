@@ -7,7 +7,7 @@ public class SystemCreated extends DomainEvent {
     private final Integer number;
     private final String factionId;
 
-    public SystemCreated(Integer number, String factionId, List<String> planets) {
+    public SystemCreated(Integer number, String factionId) {
         super(EventsEnum.SYSTEM_CREATED.name());
         this.number = number;
         this.factionId = factionId;

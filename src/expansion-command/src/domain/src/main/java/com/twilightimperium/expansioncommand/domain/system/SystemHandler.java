@@ -46,10 +46,7 @@ public class SystemHandler extends DomainActionsContainer {
                     InvadingUnitCount.of(event.getInvadingUnits())
             );
 
-            if (system.getPlanetsList() == null) {
-                system.setPlanetsList(new ArrayList<>());
-            }
-
+            system.setPlanetsList(new ArrayList<>());
             system.getPlanetsList().add(newPlanet);
         };
     }

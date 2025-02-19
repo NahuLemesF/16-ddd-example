@@ -27,7 +27,7 @@ public class Validate {
     }
 
     public static void validateMoreThanOne(Integer number, String fieldName) {
-        if (number.doubleValue() <= 1) {
+        if (number.doubleValue() < 1) {
             throw new IllegalArgumentException(fieldName + " must be greater than 1.");
         }
     }

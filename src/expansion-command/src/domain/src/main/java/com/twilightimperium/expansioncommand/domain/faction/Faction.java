@@ -5,9 +5,11 @@ import com.twilightimperium.expansioncommand.domain.faction.entities.Government;
 import com.twilightimperium.expansioncommand.domain.faction.entities.Technology;
 import com.twilightimperium.expansioncommand.domain.faction.entities.Unit;
 import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionAdded;
+import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionLost;
 import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionPercentageUpdated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionSurrendered;
+import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelDecreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentTypeChanged;
 import com.twilightimperium.expansioncommand.domain.faction.events.TechnologyAdded;
@@ -21,6 +23,7 @@ import com.twilightimperium.expansioncommand.domain.faction.values.FactionId;
 import com.twilightimperium.expansioncommand.domain.faction.values.IsSurrendered;
 import com.twilightimperium.expansioncommand.domain.faction.values.Name;
 import com.twilightimperium.shared.domain.generic.AggregateRoot;
+import com.twilightimperium.shared.domain.generic.DomainEvent;
 
 import java.util.List;
 
@@ -34,14 +37,15 @@ public class Faction extends AggregateRoot<FactionId> {
     private Government government;
 
     // region Constructors
-    public Faction(String name, String description) {
+    public Faction(String name, String description, Boolean isSurrendered, String governmentType, Integer governmentLevel) {
         super(new FactionId());
-        apply(new FactionCreated(name, description, false, "Default", 1));
         subscribe(new FactionHandler(this));
+        apply(new FactionCreated(name, description, isSurrendered, governmentType, governmentLevel));
     }
 
     private Faction(FactionId identity) {
         super(identity);
+        subscribe(new FactionHandler(this));
     }
     // endregion
 
@@ -128,8 +132,12 @@ public class Faction extends AggregateRoot<FactionId> {
         apply(new TechnologyLevelIncreased(level));
     }
 
-    public void increaseGovernmentLevel(Integer level) {
-        apply(new GovernmentLevelIncreased(level));
+    public void increaseGovernmentLevel() {
+        apply(new GovernmentLevelIncreased());
+    }
+
+    public void decreaseGovernmentLevel() {
+        apply(new GovernmentLevelDecreased());
     }
 
     public void changeGovernmentType(String type, Integer level) {
@@ -140,6 +148,10 @@ public class Faction extends AggregateRoot<FactionId> {
         apply(new ConqueredFactionAdded(name, percentage));
     }
 
+    public void removeConqueredFaction(String id) {
+        apply(new ConqueredFactionLost(id));
+    }
+
     public void updateConqueredFactionPercentage(String id, Integer percentage) {
         apply(new ConqueredFactionPercentageUpdated(id, percentage));
     }
@@ -148,4 +160,11 @@ public class Faction extends AggregateRoot<FactionId> {
         apply(new FactionSurrendered(true));
     }
     // endregion
+
+    public static Faction from(final String identity, final List<DomainEvent> events) {
+        Faction faction = new Faction(FactionId.of(identity));
+
+        events.forEach(faction::apply);
+        return faction;
+    }
 }

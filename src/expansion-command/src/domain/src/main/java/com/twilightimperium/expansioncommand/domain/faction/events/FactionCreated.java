@@ -9,7 +9,7 @@ public class FactionCreated extends DomainEvent {
     private final String governmentType;
     private final Integer governmentLevel;
 
-    public FactionCreated(String name, String description, boolean isSurrendered, String governmentType, int governmentLevel) {
+    public FactionCreated(String name, String description, Boolean isSurrendered, String governmentType, Integer governmentLevel) {
         super(EventsEnum.FACTION_CREATED.name());
         this.name = name;
         this.description = description;
