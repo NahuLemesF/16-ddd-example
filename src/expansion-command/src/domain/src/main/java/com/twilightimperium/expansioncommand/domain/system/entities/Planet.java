@@ -71,7 +71,7 @@ public class Planet extends Entity<PlanetId> {
     }
 
     public void removeInvadingUnit(Integer count) {
-        int newCount = this.invadingUnitCount.getValue() - count;
+        int newCount = Math.max(0, this.invadingUnitCount.getValue() - count);
         this.invadingUnitCount = InvadingUnitCount.of(newCount);
     }
     // endregion

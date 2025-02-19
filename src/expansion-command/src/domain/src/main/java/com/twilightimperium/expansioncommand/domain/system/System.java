@@ -1,5 +1,6 @@
 package com.twilightimperium.expansioncommand.domain.system;
 
+import com.twilightimperium.expansioncommand.domain.faction.Faction;
 import com.twilightimperium.expansioncommand.domain.faction.values.FactionId;
 import com.twilightimperium.expansioncommand.domain.system.entities.Planet;
 import com.twilightimperium.expansioncommand.domain.system.events.InvadingUnitAdded;
@@ -11,6 +12,7 @@ import com.twilightimperium.expansioncommand.domain.system.events.SystemOwningFa
 import com.twilightimperium.expansioncommand.domain.system.values.SystemId;
 import com.twilightimperium.expansioncommand.domain.system.values.SystemNumber;
 import com.twilightimperium.shared.domain.generic.AggregateRoot;
+import com.twilightimperium.shared.domain.generic.DomainEvent;
 
 import java.util.List;
 
@@ -27,8 +29,8 @@ public class System extends AggregateRoot<SystemId> {
 
     public System(String factionId, Integer number) {
         super(new SystemId());
-        apply(new SystemCreated(number, factionId));
         subscribe(new SystemHandler(this));
+        apply(new SystemCreated(number, factionId));
     }
     // endregion
 
@@ -80,4 +82,9 @@ public class System extends AggregateRoot<SystemId> {
     }
     // endregion
 
-}
+    public static System from(final String identity, final List<DomainEvent> events) {
+        System system = new System(SystemId.of(identity));
+
+        events.forEach(system::apply);
+        return system;
+    }}

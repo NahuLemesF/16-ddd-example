@@ -1,7 +1,6 @@
 package com.twilightimperium.expansioncommand.domain.system.events;
 
 import com.twilightimperium.shared.domain.generic.DomainEvent;
-import java.util.List;
 
 public class SystemCreated extends DomainEvent {
     private final Integer number;
