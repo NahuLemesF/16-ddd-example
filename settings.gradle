@@ -1,7 +1,10 @@
 rootProject.name = '15-twilight-imperium'
 
 include ':shared:domain'
+include ':shared:application'
 include ':expansion-command:domain'
 
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
+project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':expansion-command:domain').projectDir = file('./src/expansion-command/src/domain')
+
