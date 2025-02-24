@@ -36,10 +36,10 @@ public class Faction extends AggregateRoot<FactionId> {
     private Government government;
 
     // region Constructors
-    public Faction(String name, String description, Boolean isSurrendered, String governmentType, Integer governmentLevel) {
+    public Faction(String name, String description, Boolean isSurrendered, String governmentType, Integer governmentLevel, List<String> technologiesList) {
         super(new FactionId());
         subscribe(new FactionHandler(this));
-        apply(new FactionCreated(name, description, isSurrendered, governmentType, governmentLevel));
+        apply(new FactionCreated(name, description, isSurrendered, governmentType, governmentLevel, technologiesList));
     }
 
     private Faction(FactionId identity) {
@@ -127,8 +127,8 @@ public class Faction extends AggregateRoot<FactionId> {
         apply(new TechnologyAdded(name, level));
     }
 
-    public void increaseTechnologyLevel(Integer level) {
-        apply(new TechnologyLevelIncreased(level));
+    public void increaseTechnologyLevel(String name, Integer level) {
+        apply(new TechnologyLevelIncreased(name, level));
     }
 
     public void increaseGovernmentLevel() {

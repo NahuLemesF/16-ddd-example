@@ -57,9 +57,9 @@ public class FactionHandler extends DomainActionsContainer {
 
             faction.setIsSurrendered(IsSurrendered.of(false));
             faction.setUnitsList(new ArrayList<>());
-            faction.setTechnologiesList(new ArrayList<>());
             faction.setConqueredFactionsList(new ArrayList<>());
             faction.setGovernment(new Government(Type.of("Tribal"), Level.of(1)));
+            faction.setTechnologiesList(new ArrayList<>());
         };
     }
 

@@ -7,13 +7,17 @@ public class UpgradeGovernmentRequest extends Request {
     private final Integer additionalCapacity;
     private final Integer reducedCost;
     private final Integer governmentLevel;
+    private final String technologyName;
+    private final Integer technologyLevel;
 
-    public UpgradeGovernmentRequest(String aggregateId, String unitId, Integer additionalCapacity, Integer reducedCost, Integer governmentLevel) {
+    public UpgradeGovernmentRequest(String aggregateId, String unitId, Integer additionalCapacity, Integer reducedCost, Integer governmentLevel, String technologyName, Integer technologyLevel) {
         super(aggregateId);
         this.unitId = unitId;
         this.additionalCapacity = additionalCapacity;
         this.reducedCost = reducedCost;
         this.governmentLevel = governmentLevel;
+        this.technologyName = technologyName;
+        this.technologyLevel = technologyLevel;
     }
 
     public String getUnitId() {
@@ -30,5 +34,13 @@ public class UpgradeGovernmentRequest extends Request {
 
     public Integer getGovernmentLevel() {
         return governmentLevel;
+    }
+
+    public String getTechnologyName() {
+        return technologyName;
+    }
+
+    public Integer getTechnologyLevel() {
+        return technologyLevel;
     }
 }

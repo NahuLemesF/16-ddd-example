@@ -31,6 +31,7 @@ public class UpgradeGovernmentUseCase implements ICommandUseCase<UpgradeGovernme
                     faction.changeGovernmentType(faction.getGovernment().getType().getValue(), request.getGovernmentLevel());
                     faction.increaseUnitCapacity(request.getUnitId(), request.getAdditionalCapacity());
                     faction.reduceUnitCost(request.getUnitId(), request.getReducedCost());
+                    faction.increaseTechnologyLevel(request.getTechnologyName(), request.getTechnologyLevel());
 
                     faction.getUncommittedEvents().forEach(eventRepository::save);
                     faction.markEventsAsCommitted();
