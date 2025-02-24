@@ -9,7 +9,6 @@ import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFact
 import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionPercentageUpdated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionSurrendered;
-import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelDecreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentTypeChanged;
 import com.twilightimperium.expansioncommand.domain.faction.events.TechnologyAdded;
@@ -42,7 +41,6 @@ public class FactionHandler extends DomainActionsContainer {
         add(increaseUnitCapacity(faction));
         add(reduceUnitCost(faction));
         add(increaseGovernmentLevel(faction));
-        add(decreaseGovernmentLevel(faction));
         add(changeGovernmentType(faction));
         add(addTechnology(faction));
         add(addConqueredFaction(faction));
@@ -110,14 +108,6 @@ public class FactionHandler extends DomainActionsContainer {
             faction.getGovernment().increaseLevel();
         };
     }
-
-
-    public Consumer<? extends DomainEvent> decreaseGovernmentLevel(Faction faction) {
-        return (GovernmentLevelDecreased event) -> {
-            faction.getGovernment().decreaseLevel();
-        };
-    }
-
 
     public Consumer<? extends DomainEvent> changeGovernmentType(Faction faction) {
         return (GovernmentTypeChanged event) -> {

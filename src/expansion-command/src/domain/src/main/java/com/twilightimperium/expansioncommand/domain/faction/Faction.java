@@ -9,7 +9,6 @@ import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFact
 import com.twilightimperium.expansioncommand.domain.faction.events.ConqueredFactionPercentageUpdated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionSurrendered;
-import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelDecreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentTypeChanged;
 import com.twilightimperium.expansioncommand.domain.faction.events.TechnologyAdded;
@@ -134,10 +133,6 @@ public class Faction extends AggregateRoot<FactionId> {
 
     public void increaseGovernmentLevel() {
         apply(new GovernmentLevelIncreased());
-    }
-
-    public void decreaseGovernmentLevel() {
-        apply(new GovernmentLevelDecreased());
     }
 
     public void changeGovernmentType(String type, Integer level) {
