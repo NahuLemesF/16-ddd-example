@@ -67,11 +67,11 @@ public class FactionHandler extends DomainActionsContainer {
 
         return (UnitCreated event) -> {
             Unit newUnit = new Unit(
-                    CombatPower.of(event.getCombatPower()),
-                    Capacity.of(event.getCapacity()),
-                    Cost.of(event.getCost()),
-                    Type.of(event.getType()),
-                    Movement.of(event.getMovement())
+                    CombatPower.of(event.getCombatPower()).getValue(),
+                    Capacity.of(event.getCapacity()).getValue(),
+                    Cost.of(event.getCost()).getValue(),
+                    Type.of(event.getType()).getValue(),
+                    Movement.of(event.getMovement()).getValue()
             );
             faction.getUnitsList().add(newUnit);
         };

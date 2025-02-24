@@ -1,6 +1,5 @@
 package com.twilightimperium.expansioncommand.domain.system;
 
-import com.twilightimperium.expansioncommand.domain.faction.Faction;
 import com.twilightimperium.expansioncommand.domain.faction.values.FactionId;
 import com.twilightimperium.expansioncommand.domain.system.entities.Planet;
 import com.twilightimperium.expansioncommand.domain.system.events.InvadingUnitAdded;

@@ -19,7 +19,7 @@ class SystemTest {
 
     @BeforeEach
     void setUp() {
-        system = new System("The Arborec", 1);
+        system = new System("The Arborec", 1, List.of("planet1"));
     }
 
     @Test
@@ -27,7 +27,7 @@ class SystemTest {
         String factionId = "faction123";
         Integer systemNumber = 42;
 
-        System system = new System(factionId, systemNumber);
+        System system = new System(factionId, systemNumber, List.of("planet1"));
 
         assertNotNull(system);
         assertNotNull(system.getNumber());
@@ -46,7 +46,7 @@ class SystemTest {
         Integer influence = 2;
         Integer invadingUnits = 1;
 
-        system.addPlanet(systemId, owningFaction, resource, influence, invadingUnits);
+        system.addPlanet(owningFaction, resource, influence, invadingUnits);
 
         assertNotNull(system.getPlanetsList());
         assertEquals(1, system.getPlanetsList().size());
@@ -74,7 +74,7 @@ class SystemTest {
             String testCase = (String) caseData[5];
 
             assertThrows(IllegalArgumentException.class, () ->
-                            system.addPlanet((String) caseData[0], (String) caseData[1], (Integer) caseData[2], (Integer) caseData[3], (Integer) caseData[4]),
+                            system.addPlanet((String) caseData[1], (Integer) caseData[2], (Integer) caseData[3], (Integer) caseData[4]),
                     "Falló el caso: " + testCase
             );
         });
@@ -91,7 +91,7 @@ class SystemTest {
 
     @Test
     void addInvadingUnitSuccessfully() {
-        system.addPlanet(system.getIdentity().getValue(), "faction456", 3, 2, 1);
+        system.addPlanet("faction456", 1,1, 1);
         assertEquals(1, system.getPlanetsList().get(0).getInvadingUnitCount().getValue());
 
         system.addInvadingUnitToPlanet("Infantry");
@@ -102,8 +102,7 @@ class SystemTest {
 
     @Test
     void updatePlanetOwningFactionSuccessfully() {
-        String systemId = system.getIdentity().getValue();
-        system.addPlanet(systemId, "faction456", 3, 2, 1);
+        system.addPlanet("faction456", 3, 2, 1);
 
         assertFalse(system.getPlanetsList().isEmpty(), "La lista de planetas no debería estar vacía.");
 
@@ -117,8 +116,7 @@ class SystemTest {
 
     @Test
     void removeInvadingUnitFromPlanetSuccessfully() {
-        String systemId = system.getIdentity().getValue();
-        system.addPlanet(systemId, "faction123", 4, 2, 3);
+        system.addPlanet( "faction123", 4, 2, 3);
 
         assertFalse(system.getPlanetsList().isEmpty(), "La lista de planetas no debería estar vacía.");
         String planetId = system.getPlanetsList().get(0).getIdentity().getValue();
@@ -137,8 +135,8 @@ class SystemTest {
         Integer systemNumber = 42;
 
         List<DomainEvent> events = List.of(
-                new SystemCreated(systemNumber, factionId),
-                new PlanetAdded(systemId, "faction456", 4, 2, 3),
+                new SystemCreated(systemNumber, factionId, List.of("planet1")),
+                new PlanetAdded("faction456", 4, 2, 3),
                 new InvadingUnitAdded("Infantry")
         );
 

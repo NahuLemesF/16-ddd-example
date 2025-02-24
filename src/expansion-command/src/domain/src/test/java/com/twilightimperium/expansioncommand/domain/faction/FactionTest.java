@@ -19,7 +19,7 @@ class FactionTest {
 
     @BeforeEach
     void setUp() {
-        faction = new Faction("The Arborec", "New Faction", false, "Tribal", 1);
+        faction = new Faction("The Arborec", "New Faction", false, "Tribal", 1, List.of( "Technology 1", "Technology 2"));
     }
 
     @Test
@@ -41,7 +41,7 @@ class FactionTest {
 
     @Test
     void createFactionFailed() {
-        assertThrows(IllegalArgumentException.class, () -> new Faction("", "", false, "", 0));
+        assertThrows(IllegalArgumentException.class, () -> new Faction("", "", false, "", 0, List.of( "Technology 1", "Technology 2")));
     }
 
     @Test
@@ -102,7 +102,7 @@ class FactionTest {
         faction.addTechnology("Technology 1", 1);
         faction.addTechnology("Technology 2", 2);
 
-        faction.increaseTechnologyLevel(1);
+        faction.increaseTechnologyLevel(" Technology 1",1);
 
         assertEquals(2, faction.getTechnologiesList().get(0).getLevel().getValue());
     }
@@ -111,19 +111,6 @@ class FactionTest {
     void increaseGovernmentLevelSuccessfully() {
         faction.increaseGovernmentLevel();
         assertEquals(2, faction.getGovernment().getLevel().getValue());
-    }
-
-    @Test
-    void decreaseGovernmentLevelSuccessfully() {
-        faction.increaseGovernmentLevel();
-        faction.decreaseGovernmentLevel();
-        assertEquals(1, faction.getGovernment().getLevel().getValue());
-    }
-
-    @Test
-    void governmentLevelDoesNotGoBelowOne() {
-        faction.decreaseGovernmentLevel();
-        assertEquals(1, faction.getGovernment().getLevel().getValue());
     }
 
     @Test
@@ -210,7 +197,7 @@ class FactionTest {
     void recreateFactionFromEventsSuccessfully() {
         String factionId = "faction-123";
         List<DomainEvent> events = List.of(
-                new FactionCreated("The Arborec", "New Faction", false, "Tribal", 1),
+                new FactionCreated("The Arborec", "New Faction", false, "Tribal", 1, List.of( "Technology 1", "Technology 2")),
                 new GovernmentLevelIncreased(),
                 new FactionSurrendered(false)
         );

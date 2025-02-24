@@ -17,23 +17,25 @@ public class Unit extends Entity<UnitId> {
     private static final Integer CAPACITY_INCREMENT = 2;
 
     // region Constructors
-    public Unit(CombatPower combatPower, Capacity capacity, Cost cost, Type type, Movement movement) {
+    public Unit(Integer combatPower, Integer capacity, Integer cost, String type, Integer movement) {
         super(new UnitId());
-        this.combatPower = combatPower;
-        this.capacity = capacity;
-        this.cost = cost;
-        this.type = type;
-        this.movement = movement;
+        this.combatPower = CombatPower.of(combatPower);
+        this.capacity = Capacity.of(capacity);
+        this.cost = Cost.of(cost);
+        this.type = Type.of(type);
+        this.movement = Movement.of(movement);
     }
 
-    public Unit(UnitId identity, CombatPower combatPower, Capacity capacity, Cost cost, Type type, Movement movement) {
+    public Unit(UnitId identity, Integer combatPower, Integer capacity, Integer cost, String type, int movement) {
         super(identity);
-        this.combatPower = combatPower;
-        this.capacity = capacity;
-        this.cost = cost;
-        this.type = type;
-        this.movement = movement;
+        this.combatPower = CombatPower.of(combatPower);
+        this.capacity = Capacity.of(capacity);
+        this.cost = Cost.of(cost);
+        this.type = Type.of(type);
+        this.movement = Movement.of(movement);
     }
+    // endregion
+
     // endregion
 
     // region Getters and Setters
