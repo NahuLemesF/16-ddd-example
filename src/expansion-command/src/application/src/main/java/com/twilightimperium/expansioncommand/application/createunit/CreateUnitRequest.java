@@ -9,8 +9,8 @@ public class CreateUnitRequest extends Request {
     private final Integer capacity;
     private final Integer cost;
 
-    public CreateUnitRequest(String unitType, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
-        super(null);
+    protected CreateUnitRequest(String aggregateId, String unitType, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
+        super(aggregateId);
         this.unitType = unitType;
         this.combatPower = combatPower;
         this.movement = movement;

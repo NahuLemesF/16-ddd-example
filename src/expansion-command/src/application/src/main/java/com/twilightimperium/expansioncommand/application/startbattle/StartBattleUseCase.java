@@ -5,12 +5,9 @@ import com.twilightimperium.expansioncommand.application.shared.faction.FactionR
 import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
 import com.twilightimperium.expansioncommand.domain.faction.Faction;
 import com.twilightimperium.expansioncommand.domain.system.System;
-import com.twilightimperium.expansioncommand.domain.system.entities.Planet;
-import com.twilightimperium.expansioncommand.domain.system.events.InvadingUnitRemoved;
 import com.twilightimperium.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
 
 public class StartBattleUseCase implements ICommandUseCase<StartBattleRequest, Mono<FactionResponse>> {
     private final IEventRepository eventRepository;
@@ -28,25 +25,21 @@ public class StartBattleUseCase implements ICommandUseCase<StartBattleRequest, M
                     Faction faction = Faction.from(request.getAggregateId(), events);
                     System system = System.from(request.getPlanetId(), events);
 
-                    Optional<Planet> planet = system.getPlanetsList().stream()
-                            .filter(p -> p.getIdentity().getValue().equals(request.getPlanetId()))
-                            .findFirst();
+                    system.addInvadingUnitToPlanet(request.getUnitId());
+                    faction.removeUnit(request.getUnitId());
+                    faction.addConqueredFaction(system.getFactionId().getValue(), request.getPercentage());
 
-                    planet.ifPresent(p -> {
-                        if (p.getInvadingUnitCount().getValue() > 0) {
-                            if (request.getUnitType().equals("PowerfulUnit")) {
-                                system.removeInvadingUnitFromPlanet(request.getPlanetId());
-                            } else {
-                                system.addInvadingUnitToPlanet(request.getUnitType());
-                            }
-                        }
-                        faction.updateConqueredFactionPercentage(request.getTargetId(), request.getPercentage());
-                    });
 
                     faction.getUncommittedEvents().forEach(eventRepository::save);
+                    system.getUncommittedEvents().forEach(eventRepository::save);
+
                     faction.markEventsAsCommitted();
+                    system.markEventsAsCommitted();
 
                     return FactionMapper.mapFactionToResponse(faction);
                 });
     }
 }
+
+// Estudiar Metodo Zip.
+

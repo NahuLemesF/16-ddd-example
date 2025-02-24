@@ -26,15 +26,8 @@ public class StartBattleRequest extends Request {
         return planetId;
     }
 
-    public String getTargetId() {
-        return targetId;
-    }
-
     public String getUnitId() {
         return unitId;
     }
 
-    public String getUnitType() {
-        return unitType;
-    }
 }

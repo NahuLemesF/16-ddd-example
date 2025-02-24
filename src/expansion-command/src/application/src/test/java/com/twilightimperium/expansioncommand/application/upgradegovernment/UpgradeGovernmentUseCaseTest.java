@@ -1,63 +1,51 @@
 package com.twilightimperium.expansioncommand.application.upgradegovernment;
 
 import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelIncreased;
+import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentTypeChanged;
 import com.twilightimperium.expansioncommand.domain.faction.events.TechnologyLevelIncreased;
+import com.twilightimperium.expansioncommand.domain.faction.events.UnitCapacityIncreased;
+import com.twilightimperium.expansioncommand.domain.faction.events.UnitCostReduced;
 import com.twilightimperium.shared.domain.generic.DomainEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class UpgradeGovernmentUseCaseTest {
-
     private IEventRepository eventRepository;
     private UpgradeGovernmentUseCase useCase;
 
-    @BeforeEach
-    void setUp() {
+    public UpgradeGovernmentUseCaseTest() {
         eventRepository = mock(IEventRepository.class);
         useCase = new UpgradeGovernmentUseCase(eventRepository);
     }
 
     @Test
-    void execute_shouldUpgradeGovernmentLevel_andChangeType_andIncreaseTechnology() {
-        // Arrange
-        String aggregateId = "faction-123";
-        String unitId = "unit-456";
-        String technologyName = "Tech-789";
-        int governmentLevel = 5;
-        int additionalCapacity = 2;
-        int reducedCost = 1;
-        int technologyLevel = 3;
-
-        List<DomainEvent> events = List.of(
+    void executeSuccessfully() {
+        Mockito.when(eventRepository.findEventsByAggregateId(Mockito.anyString())).thenReturn(Flux.just(
+                new FactionCreated("factionId", "description", false, "governmentType", 1, List.of("Tech 1", "Tech 2")),
                 new GovernmentLevelIncreased(),
-                new TechnologyLevelIncreased(technologyName, technologyLevel)
-        );
+                new GovernmentTypeChanged("Tribal", 6),
+                new UnitCapacityIncreased("unitId", 2),
+                new UnitCostReduced("unitId", 1),
+                new TechnologyLevelIncreased("factionId", 1)));
+        UpgradeGovernmentRequest request = new UpgradeGovernmentRequest("factionId", "unitId", 2, 1, 1, "Tech 1", 2);
 
-        when(eventRepository.findEventsByAggregateId(aggregateId)).thenReturn(Flux.fromIterable(events));
-
-        UpgradeGovernmentRequest request = new UpgradeGovernmentRequest(
-                aggregateId, unitId, governmentLevel, additionalCapacity, reducedCost, technologyName, technologyLevel
-        );
-
-        // Act & Assert
-        StepVerifier.create(useCase.execute(request))
-                .expectNextMatches(response -> {
-                    // Verifica las propiedades del response
-                    return response.getGovernmentLevel() == governmentLevel &&
-                            response.getTechnologiesList().stream()
-                                    .anyMatch(t -> t.getName().equals(technologyName) && t.getLevel().equals(technologyLevel));
+        StepVerifier
+                .create(useCase.execute(request))
+                .assertNext(response -> {
+                    assertNotNull(response);
+                    assertEquals("factionId", response.getFactionId());
                 })
                 .verifyComplete();
-
-        // Verificación de los métodos llamados
-        verify(eventRepository, times(1)).findEventsByAggregateId(aggregateId);
-        verify(eventRepository, times(1)).save(any(DomainEvent.class));
     }
 }

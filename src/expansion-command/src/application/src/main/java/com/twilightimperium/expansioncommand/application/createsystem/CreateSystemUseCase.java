@@ -19,17 +19,24 @@ public class CreateSystemUseCase implements ICommandUseCase<CreateSystemRequest,
 
     @Override
     public Mono<SystemResponse> execute(CreateSystemRequest request) {
+        return eventRepository.findEventsByAggregateId(request.getFactionId())
+                .collectList()
+                .map(events -> {
         System system = new System(
                 request.getFactionId(),
                 request.getNumber(),
                 request.getPlanetsList()
         );
+
+
         system.addPlanet("faction1", 1, 1, 1);
         system.addPlanet("faction2", 1, 1, 1);
 
         system.getUncommittedEvents().forEach(eventRepository::save);
         system.markEventsAsCommitted();
 
-        return Mono.just(mapSystemToResponse(system));
+        return mapSystemToResponse(system);
+
+        });
     }
 }
