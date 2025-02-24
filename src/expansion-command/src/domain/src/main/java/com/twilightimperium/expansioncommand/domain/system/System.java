@@ -27,10 +27,10 @@ public class System extends AggregateRoot<SystemId> {
         subscribe(new SystemHandler(this));
     }
 
-    public System(String factionId, Integer number) {
+    public System(String factionId, Integer number, List<String> planetsList) {
         super(new SystemId());
         subscribe(new SystemHandler(this));
-        apply(new SystemCreated(number, factionId));
+        apply(new SystemCreated(number, factionId, planetsList));
     }
     // endregion
 
@@ -61,8 +61,8 @@ public class System extends AggregateRoot<SystemId> {
     // endregion
 
     // region Domain Actions
-    public void addPlanet(String systemId, String owningFaction, Integer resource, Integer influence, Integer invadingUnits) {
-        apply(new PlanetAdded(systemId, owningFaction, resource, influence, invadingUnits));
+    public void addPlanet(String owningFaction, Integer resource, Integer influence, Integer invadingUnits) {
+        apply(new PlanetAdded(owningFaction, resource, influence, invadingUnits));
     }
 
     public void updateSystemOwningFaction(String id) {

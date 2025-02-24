@@ -71,13 +71,13 @@ public class FactionResponse {
 
     public static class Unit {
         private final String id;
-        private final Type type;
-        private final CombatPower combatPower;
-        private final Movement movement;
-        private final Capacity capacity;
-        private final Cost cost;
+        private final String type;
+        private final Integer combatPower;
+        private final Integer movement;
+        private final Integer capacity;
+        private final Integer cost;
 
-        public Unit(String id, Type type, CombatPower combatPower, Movement movement, Capacity capacity, Cost cost) {
+        public Unit(String id, String type, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
             this.id = id;
             this.type = type;
             this.combatPower = combatPower;
@@ -86,30 +86,33 @@ public class FactionResponse {
             this.cost = cost;
         }
 
+
         // region Getters
+
+        public Integer getCapacity() {
+            return capacity;
+        }
+
+        public Integer getCombatPower() {
+            return combatPower;
+        }
+
+        public Integer getCost() {
+            return cost;
+        }
+
         public String getId() {
             return id;
         }
 
-        public Capacity getCapacity() {
-            return capacity;
-        }
-
-        public CombatPower getCombatPower() {
-            return combatPower;
-        }
-
-        public Cost getCost() {
-            return cost;
-        }
-
-        public Movement getMovement() {
+        public Integer getMovement() {
             return movement;
         }
 
-        public Type getType() {
+        public String getType() {
             return type;
         }
+
         // endregion
     }
 

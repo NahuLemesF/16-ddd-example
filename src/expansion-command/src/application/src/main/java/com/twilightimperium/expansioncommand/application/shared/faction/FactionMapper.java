@@ -14,7 +14,7 @@ public class FactionMapper {
                 faction.getGovernment().getType().getValue(),
                 faction.getGovernment().getLevel().getValue(),
                 faction.getConqueredFactionsList().stream().map(cf -> new FactionResponse.ConqueredFaction(cf.getIdentity().getValue(), cf.getName().getValue(), cf.getPercentage().getValue())).collect(Collectors.toList()),
-                faction.getUnitsList().stream().map(u -> new FactionResponse.Unit(u.getIdentity().getValue(), u.getType(), u.getAttackPower(), u.getMovement(), u.getCapacity(), u.getCost())).collect(Collectors.toList()),
+                faction.getUnitsList().stream().map(u -> new FactionResponse.Unit(u.getIdentity().getValue(), u.getType().getValue(), u.getAttackPower().getValue(), u.getMovement().getValue(), u.getCapacity().getValue(), u.getCost().getValue())).collect(Collectors.toList()),
                 faction.getTechnologiesList().stream().map(t -> new FactionResponse.Technology(t.getIdentity().getValue(), t.getName().getValue(), t.getLevel().getValue())).collect(Collectors.toList())
         );
     }

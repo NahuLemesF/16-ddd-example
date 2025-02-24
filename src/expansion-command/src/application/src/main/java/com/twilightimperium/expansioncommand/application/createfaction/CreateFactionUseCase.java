@@ -3,14 +3,9 @@ package com.twilightimperium.expansioncommand.application.createfaction;
 import com.twilightimperium.expansioncommand.application.shared.faction.FactionResponse;
 import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
 import com.twilightimperium.expansioncommand.domain.faction.Faction;
-import com.twilightimperium.expansioncommand.domain.faction.entities.Technology;
-import com.twilightimperium.expansioncommand.domain.faction.events.TechnologyAdded;
 import com.twilightimperium.shared.application.ICommandUseCase;
-import com.twilightimperium.shared.domain.generic.DomainEvent;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.twilightimperium.expansioncommand.application.shared.faction.FactionMapper.mapFactionToResponse;
