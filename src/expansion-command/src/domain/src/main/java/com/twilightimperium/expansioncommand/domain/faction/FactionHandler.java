@@ -52,7 +52,7 @@ public class FactionHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> createFaction(Faction faction) {
         return (FactionCreated event) -> {
-            faction.setName(Name.of(event.getName()));
+            faction.setName(Name.of(event.getFactionName()));
             faction.setDescription(Description.of(event.getDescription()));
 
             faction.setIsSurrendered(IsSurrendered.of(false));
@@ -73,6 +73,7 @@ public class FactionHandler extends DomainActionsContainer {
                     Type.of(event.getType()).getValue(),
                     Movement.of(event.getMovement()).getValue()
             );
+            faction.setUnitsList(new ArrayList<>());
             faction.getUnitsList().add(newUnit);
         };
 
@@ -119,10 +120,10 @@ public class FactionHandler extends DomainActionsContainer {
     public Consumer<? extends DomainEvent> addTechnology(Faction faction) {
         return (TechnologyAdded event) -> {
             Technology newTechnology = new Technology(
-                    Name.of(event.getName()),
+                    Name.of(event.getFactionName()),
                     Level.of(event.getLevel())
             );
-
+            faction.setTechnologiesList(new ArrayList<>());
             faction.getTechnologiesList().add(newTechnology);
         };
     }
@@ -131,7 +132,7 @@ public class FactionHandler extends DomainActionsContainer {
         return (ConqueredFactionAdded event) -> {
 
             ConqueredFaction newConqueredFaction = new ConqueredFaction(
-                    Name.of(event.getName()),
+                    Name.of(event.getFactionName()),
                     Percentage.of(event.getPercentage())
             );
 

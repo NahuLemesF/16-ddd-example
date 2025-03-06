@@ -1,7 +1,7 @@
 package com.twilightimperium.expansioncommand.application.createfaction;
 
 import com.twilightimperium.expansioncommand.application.shared.faction.FactionResponse;
-import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -15,11 +15,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class CreateFactionUseCaseTest {
-    private IEventRepository eventRepository;
+    private IEventsRepositoryPort eventRepository;
     private CreateFactionUseCase createFactionUseCase;
 
     public CreateFactionUseCaseTest() {
-        eventRepository = mock(IEventRepository.class);
+        eventRepository = mock(IEventsRepositoryPort.class);
         createFactionUseCase = new CreateFactionUseCase(eventRepository);
     }
 

@@ -2,13 +2,19 @@ package com.twilightimperium.expansioncommand.domain.faction.events;
 
 import com.twilightimperium.shared.domain.generic.DomainEvent;
 
-public class ConqueredFactionAdded extends DomainEvent {
-    private final String name;
-    private final Integer percentage;
+import java.time.Instant;
 
-    public ConqueredFactionAdded(String name, Integer percentage) {
+public class ConqueredFactionAdded extends DomainEvent {
+    private String factionName;
+    private Integer percentage;
+
+    public ConqueredFactionAdded() {
+        super(null);
+    }
+
+    public ConqueredFactionAdded(String factionName, Integer percentage) {
         super(EventsEnum.CONQUERED_FACTION_ADDED.name());
-        this.name = name;
+        this.factionName = factionName;
         this.percentage = percentage;
     }
 
@@ -16,7 +22,15 @@ public class ConqueredFactionAdded extends DomainEvent {
         return percentage;
     }
 
-    public String getName() {
-        return name;
+    public String getFactionName() {
+        return factionName;
+    }
+
+    public void setPercentage(Integer percentage) {
+        this.percentage = percentage;
+    }
+
+    public void setFactionName(String factionName) {
+        this.factionName = factionName;
     }
 }

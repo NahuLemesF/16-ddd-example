@@ -3,11 +3,11 @@ package com.twilightimperium.expansioncommand.application.createunit;
 import com.twilightimperium.shared.application.Request;
 
 public class CreateUnitRequest extends Request {
-    private final String unitType;
-    private final Integer combatPower;
-    private final Integer movement;
-    private final Integer capacity;
-    private final Integer cost;
+    private String unitType;
+    private Integer combatPower;
+    private Integer movement;
+    private Integer capacity;
+    private Integer cost;
 
     protected CreateUnitRequest(String aggregateId, String unitType, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
         super(aggregateId);

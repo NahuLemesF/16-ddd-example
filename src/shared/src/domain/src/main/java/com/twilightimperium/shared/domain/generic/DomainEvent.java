@@ -4,26 +4,33 @@ import java.time.Instant;
 import java.util.UUID;
 
 public abstract class DomainEvent {
-    private final Instant when;
-    private final String uuid;
-    private final String name;
+    private Instant when;
+    private String uuid;
+    private String nameDomainEvent;
     private String aggregateRootId;
     private String aggregateName;
     private Long version;
 
-    protected DomainEvent(String name) {
+    public DomainEvent() {
+    }
+
+    protected DomainEvent(String nameDomainEvent) {
         this.when = Instant.now();
         this.uuid = UUID.randomUUID().toString();
-        this.name = name;
+        this.nameDomainEvent = nameDomainEvent;
         this.version = 1L;
     }
 
-    public String getAggregateName() {
-        return aggregateName;
+    public Instant getWhen() {
+        return when;
     }
 
-    public void setAggregateName(String aggregateName) {
-        this.aggregateName = aggregateName;
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getEventName() {
+        return nameDomainEvent;
     }
 
     public String getAggregateRootId() {
@@ -34,12 +41,12 @@ public abstract class DomainEvent {
         this.aggregateRootId = aggregateRootId;
     }
 
-    public String getName() {
-        return name;
+    public String getAggregateName() {
+        return aggregateName;
     }
 
-    public String getUuid() {
-        return uuid;
+    public void setAggregateName(String aggregateName) {
+        this.aggregateName = aggregateName;
     }
 
     public Long getVersion() {
@@ -50,7 +57,16 @@ public abstract class DomainEvent {
         this.version = version;
     }
 
-    public Instant getWhen() {
-        return when;
+    public void setWhen(Instant when) {
+        this.when = when;
     }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setEventName(String tableName) {
+        this.nameDomainEvent = tableName;
+    }
+
 }

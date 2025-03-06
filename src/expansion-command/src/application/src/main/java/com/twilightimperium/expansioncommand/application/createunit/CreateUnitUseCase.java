@@ -1,15 +1,15 @@
 package com.twilightimperium.expansioncommand.application.createunit;
 
-import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.application.shared.ports.IEventsRepositoryPort;
 import com.twilightimperium.expansioncommand.application.shared.unit.UnitResponse;
 import com.twilightimperium.expansioncommand.domain.faction.Faction;
 import com.twilightimperium.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
 public class CreateUnitUseCase implements ICommandUseCase<CreateUnitRequest, Mono<UnitResponse>> {
-    private final IEventRepository eventRepository;
+    private final IEventsRepositoryPort eventRepository;
 
-    public CreateUnitUseCase(IEventRepository eventRepository) {
+    public CreateUnitUseCase(IEventsRepositoryPort eventRepository) {
         this.eventRepository = eventRepository;
     }
 

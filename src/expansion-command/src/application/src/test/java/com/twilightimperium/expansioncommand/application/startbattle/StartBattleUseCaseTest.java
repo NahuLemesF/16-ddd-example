@@ -1,6 +1,6 @@
 package com.twilightimperium.expansioncommand.application.startbattle;
 
-import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.application.shared.ports.IEventsRepositoryPort;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.system.events.SystemCreated;
 import org.junit.jupiter.api.Test;
@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class StartBattleUseCaseTest {
     private final StartBattleUseCase useCase;
-    private final IEventRepository repository;
+    private final IEventsRepositoryPort repository;
 
     public StartBattleUseCaseTest() {
-        repository = Mockito.mock(IEventRepository.class);
+        repository = Mockito.mock(IEventsRepositoryPort.class);
         useCase = new StartBattleUseCase(repository);
     }
 

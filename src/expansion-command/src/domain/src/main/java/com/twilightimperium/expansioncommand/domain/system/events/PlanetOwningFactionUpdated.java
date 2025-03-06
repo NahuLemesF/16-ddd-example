@@ -3,8 +3,12 @@ package com.twilightimperium.expansioncommand.domain.system.events;
 import com.twilightimperium.shared.domain.generic.DomainEvent;
 
 public class PlanetOwningFactionUpdated extends DomainEvent {
-    private final String id;
-    private final String owningFaction;
+    private String id;
+    private String owningFaction;
+
+    public PlanetOwningFactionUpdated(String name) {
+        super(name);
+    }
 
     public PlanetOwningFactionUpdated(String id, String owningFaction) {
         super(EventsEnum.PLANET_OWNING_FACTION_UPDATED.name());
@@ -18,5 +22,13 @@ public class PlanetOwningFactionUpdated extends DomainEvent {
 
     public String getOwningFaction() {
         return owningFaction;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setOwningFaction(String owningFaction) {
+        this.owningFaction = owningFaction;
     }
 }

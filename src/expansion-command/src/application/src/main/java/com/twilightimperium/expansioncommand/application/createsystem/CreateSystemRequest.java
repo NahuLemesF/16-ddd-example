@@ -5,12 +5,13 @@ import com.twilightimperium.shared.application.Request;
 import java.util.List;
 
 public class CreateSystemRequest extends Request {
-    private final Integer number;
-    private final String factionId;
-    private final List<String> planetsList;
+    private Integer number;
+    private String factionId;
+    private List<String> planetsList;
 
-    protected CreateSystemRequest(Integer number, String factionId, List<String> planetsList) {
-        super(null);
+
+    protected CreateSystemRequest(String aggregateId, Integer number, String factionId, List<String> planetsList) {
+        super(aggregateId);
         this.number = number;
         this.factionId = factionId;
         this.planetsList = planetsList;
@@ -28,6 +29,18 @@ public class CreateSystemRequest extends Request {
 
     public List<String> getPlanetsList() {
         return planetsList;
+    }
+
+    public void setFactionId(String factionId) {
+        this.factionId = factionId;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public void setPlanetsList(List<String> planetsList) {
+        this.planetsList = planetsList;
     }
 
     // endregion

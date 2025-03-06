@@ -3,12 +3,16 @@ package com.twilightimperium.expansioncommand.domain.faction.events;
 import com.twilightimperium.shared.domain.generic.DomainEvent;
 
 public class TechnologyAdded extends DomainEvent {
-    private final String name;
-    private final Integer level;
+    private String techName;
+    private Integer level;
 
-    public TechnologyAdded(String name, Integer level) {
+    public TechnologyAdded() {
+        super(null);
+    }
+
+    public TechnologyAdded(String techName, Integer level) {
         super(EventsEnum.TECHNOLOGY_ADDED.name());
-        this.name = name;
+        this.techName = techName;
         this.level = level;
     }
 
@@ -16,7 +20,15 @@ public class TechnologyAdded extends DomainEvent {
         return level;
     }
 
-    public String getName() {
-        return name;
+    public String getFactionName() {
+        return techName;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public void setTechName(String techName) {
+        this.techName = techName;
     }
 }

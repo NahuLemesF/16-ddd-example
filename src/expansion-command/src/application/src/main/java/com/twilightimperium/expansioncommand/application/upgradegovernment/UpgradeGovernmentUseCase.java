@@ -1,21 +1,17 @@
 package com.twilightimperium.expansioncommand.application.upgradegovernment;
 
 import com.twilightimperium.expansioncommand.application.shared.faction.FactionResponse;
-import com.twilightimperium.expansioncommand.application.shared.faction.FactionMapper;
-import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.application.shared.ports.IEventsRepositoryPort;
 import com.twilightimperium.expansioncommand.domain.faction.Faction;
 import com.twilightimperium.shared.application.ICommandUseCase;
-import com.twilightimperium.shared.domain.generic.DomainEvent;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 import static com.twilightimperium.expansioncommand.application.shared.faction.FactionMapper.mapFactionToResponse;
 
 public class UpgradeGovernmentUseCase implements ICommandUseCase<UpgradeGovernmentRequest, Mono<FactionResponse>> {
-    private final IEventRepository eventRepository;
+    private final IEventsRepositoryPort eventRepository;
 
-    public UpgradeGovernmentUseCase(IEventRepository eventRepository) {
+    public UpgradeGovernmentUseCase(IEventsRepositoryPort eventRepository) {
         this.eventRepository = eventRepository;
     }
 

@@ -1,14 +1,12 @@
 package com.twilightimperium.expansioncommand.application.upgradegovernment;
 
-import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.application.shared.ports.IEventsRepositoryPort;
 import com.twilightimperium.expansioncommand.domain.faction.events.FactionCreated;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentLevelIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.GovernmentTypeChanged;
 import com.twilightimperium.expansioncommand.domain.faction.events.TechnologyLevelIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.UnitCapacityIncreased;
 import com.twilightimperium.expansioncommand.domain.faction.events.UnitCostReduced;
-import com.twilightimperium.shared.domain.generic.DomainEvent;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
@@ -21,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class UpgradeGovernmentUseCaseTest {
-    private IEventRepository eventRepository;
+    private IEventsRepositoryPort eventRepository;
     private UpgradeGovernmentUseCase useCase;
 
     public UpgradeGovernmentUseCaseTest() {
-        eventRepository = mock(IEventRepository.class);
+        eventRepository = mock(IEventsRepositoryPort.class);
         useCase = new UpgradeGovernmentUseCase(eventRepository);
     }
 

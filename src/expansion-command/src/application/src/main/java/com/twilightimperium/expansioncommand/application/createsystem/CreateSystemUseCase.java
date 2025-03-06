@@ -1,24 +1,23 @@
 package com.twilightimperium.expansioncommand.application.createsystem;
 
-import com.twilightimperium.expansioncommand.application.shared.repositories.IEventRepository;
+import com.twilightimperium.expansioncommand.application.shared.ports.IEventsRepositoryPort;
 import com.twilightimperium.expansioncommand.application.shared.system.SystemResponse;
 import com.twilightimperium.expansioncommand.domain.system.System;
 import com.twilightimperium.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
-import java.util.stream.Stream;
-
 import static com.twilightimperium.expansioncommand.application.shared.system.SystemMapper.mapSystemToResponse;
 
 public class CreateSystemUseCase implements ICommandUseCase<CreateSystemRequest, Mono<SystemResponse>> {
-    private final IEventRepository eventRepository;
+    private final IEventsRepositoryPort eventRepository;
 
-    public CreateSystemUseCase(IEventRepository eventRepository) {
+    public CreateSystemUseCase(IEventsRepositoryPort eventRepository) {
         this.eventRepository = eventRepository;
     }
 
     @Override
     public Mono<SystemResponse> execute(CreateSystemRequest request) {
+
         return eventRepository.findEventsByAggregateId(request.getFactionId())
                 .collectList()
                 .map(events -> {

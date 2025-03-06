@@ -4,9 +4,12 @@ include ':shared:domain'
 include ':shared:application'
 include ':expansion-command:domain'
 include ':expansion-command:application'
-
+include ':expansion-command:mongo'
+include ':expansion-command:main-service'
 
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
 project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':expansion-command:domain').projectDir = file('./src/expansion-command/src/domain')
 project(':expansion-command:application').projectDir = file('./src/expansion-command/src/application')
+project(':expansion-command:mongo').projectDir = file('./src/expansion-command/src/infrastructure/driven-adapters/mongo')
+project(':expansion-command:main-service').projectDir = file('./src/expansion-command/src/infrastructure/driving-adapters/main-service')

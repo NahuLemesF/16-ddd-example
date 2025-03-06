@@ -85,5 +85,7 @@ public class System extends AggregateRoot<SystemId> {
         System system = new System(SystemId.of(identity));
 
         events.forEach(system::apply);
+
+        system.markEventsAsCommitted();
         return system;
     }}

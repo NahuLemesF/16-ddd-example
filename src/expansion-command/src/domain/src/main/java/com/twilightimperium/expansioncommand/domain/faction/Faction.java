@@ -132,7 +132,7 @@ public class Faction extends AggregateRoot<FactionId> {
     }
 
     public void increaseGovernmentLevel() {
-        apply(new GovernmentLevelIncreased());
+        apply(new GovernmentLevelIncreased( this.getIdentity().getValue()));
     }
 
     public void changeGovernmentType(String type, Integer level) {
@@ -159,7 +159,13 @@ public class Faction extends AggregateRoot<FactionId> {
     public static Faction from(final String identity, final List<DomainEvent> events) {
         Faction faction = new Faction(FactionId.of(identity));
 
-        events.forEach(faction::apply);
+        events.forEach(event -> {
+            event.setAggregateRootId(identity);
+            faction.apply(event);
+        });
+
+        faction.markEventsAsCommitted();
         return faction;
     }
+
 }

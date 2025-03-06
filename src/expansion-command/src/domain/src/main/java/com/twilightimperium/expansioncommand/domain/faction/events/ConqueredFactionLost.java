@@ -3,7 +3,11 @@ package com.twilightimperium.expansioncommand.domain.faction.events;
 import com.twilightimperium.shared.domain.generic.DomainEvent;
 
 public class ConqueredFactionLost extends DomainEvent {
-    private final String id;
+    private String id;
+
+    public ConqueredFactionLost() {
+        super(null);
+    }
 
     public ConqueredFactionLost(String id) {
         super(EventsEnum.CONQUERED_FACTION_LOST.name());
@@ -12,5 +16,9 @@ public class ConqueredFactionLost extends DomainEvent {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

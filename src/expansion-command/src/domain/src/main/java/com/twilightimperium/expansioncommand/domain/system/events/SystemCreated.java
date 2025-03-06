@@ -5,9 +5,13 @@ import com.twilightimperium.shared.domain.generic.DomainEvent;
 import java.util.List;
 
 public class SystemCreated extends DomainEvent {
-    private final Integer number;
-    private final String factionId;
-    private final List<String> planetsList;
+    private Integer number;
+    private String factionId;
+    private List<String> planetsList;
+
+    public SystemCreated() {
+        super(null);
+    }
 
     public SystemCreated(Integer number, String factionId, List<String> planetsList) {
         super(EventsEnum.SYSTEM_CREATED.name());
@@ -26,5 +30,17 @@ public class SystemCreated extends DomainEvent {
 
     public List<String> getPlanetsList() {
         return planetsList;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public void setFactionId(String factionId) {
+        this.factionId = factionId;
+    }
+
+    public void setPlanetsList(List<String> planetsList) {
+        this.planetsList = planetsList;
     }
 }

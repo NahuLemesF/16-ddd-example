@@ -1,11 +1,5 @@
 package com.twilightimperium.expansioncommand.application.shared.faction;
 
-import com.twilightimperium.expansioncommand.domain.faction.values.Capacity;
-import com.twilightimperium.expansioncommand.domain.faction.values.CombatPower;
-import com.twilightimperium.expansioncommand.domain.faction.values.Cost;
-import com.twilightimperium.expansioncommand.domain.faction.values.Movement;
-import com.twilightimperium.expansioncommand.domain.faction.values.Type;
-
 import java.util.List;
 
 public class FactionResponse {

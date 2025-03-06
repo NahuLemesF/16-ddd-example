@@ -3,11 +3,15 @@ package com.twilightimperium.expansioncommand.domain.faction.events;
 import com.twilightimperium.shared.domain.generic.DomainEvent;
 
 public class UnitCreated extends DomainEvent {
-    private final String type;
-    private final Integer combatPower;
-    private final Integer movement;
-    private final Integer capacity;
-    private final Integer cost;
+    private String type;
+    private Integer combatPower;
+    private Integer movement;
+    private Integer capacity;
+    private Integer cost;
+
+    public UnitCreated() {
+        super(null);
+    }
 
     public UnitCreated(String type, Integer combatPower, Integer movement, Integer capacity, Integer cost) {
         super(EventsEnum.UNIT_CREATED.name());
@@ -36,5 +40,25 @@ public class UnitCreated extends DomainEvent {
 
     public Integer getMovement() {
         return movement;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setCombatPower(Integer combatPower) {
+        this.combatPower = combatPower;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
+    }
+
+    public void setMovement(Integer movement) {
+        this.movement = movement;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
